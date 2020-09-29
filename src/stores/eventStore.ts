@@ -13,6 +13,7 @@ export default class EventStore {
     @observable events: any[] = [];
     @observable grupedEvents: { [time: string]: any[]; } = {}
     @observable processedEvents: any[] = [];
+    @observable ignoredFileds: string = "author author_username author_id commit_count commit_from commit_to";
 
     @observable params: EventFilterParams[] = [{
         name: 'after',
@@ -56,7 +57,7 @@ export default class EventStore {
         var userId = this.rootStore.userStore.user!.id;
         while (true) {
             var data = await this.rootStore.apiStore.api.Users.events(userId, evnFilter);
-            if (data.length == 0) {
+            if (data.length === 0) {
                 break;
             }
             evnFilter['page'] += 1;

@@ -4,7 +4,6 @@ import GitlabForm from "./pages/GitlabForm";
 import User from "./pages/User";
 import EventFilterForm from "./pages/EventFilterForm";
 import Events from "./pages/Events";
-import JiraLoginForm from "./pages/JiraLoginForm";
 
 const App: React.FC = () => {
   const rootStore = useContext(RootStoreContext);
@@ -24,8 +23,8 @@ const App: React.FC = () => {
       <h3>GitLab User Token:</h3>
       <GitlabForm />
 
-      <h3>Jira User:</h3>
-      <JiraLoginForm />
+      {/* <h3>Jira User:</h3>
+      <JiraLoginForm /> */}
 
       <h3>User:</h3>
       <User />

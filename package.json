@@ -1,5 +1,5 @@
 {
-  "homepage": "https://github.com/matejBandik/git-wt.git",
+  "homepage": "http://matejBandik.github.io/git-wt",
   "name": "typescript-react-example",
   "version": "0.1.0",
   "private": true,
@@ -10,6 +10,7 @@
     "@types/react": "16.9.2",
     "@types/react-dom": "16.9.0",
     "@types/underscore": "^1.10.22",
+    "axios": "^0.20.0",
     "final-form": "^4.20.1",
     "jira-client": "^6.20.0",
     "mobx": "^5.15.6",

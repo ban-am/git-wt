@@ -6,3 +6,8 @@ export interface UserSchemaDefault {
     avatar_url: string;
     web_url: string;
 }
+
+export interface JiraUser {
+    username: string;
+    password: string;
+}

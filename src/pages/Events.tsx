@@ -4,12 +4,14 @@ import { RootStoreContext } from '../stores/rootStore';
 
 const Events: React.FC = () => {
     const rootStore = useContext(RootStoreContext);
-    const { events, grupedEvents } = rootStore.eventStore;
+    const { events, grupedEvents, ignoredFileds } = rootStore.eventStore;
 
     const replacer = (key: any, value: any) => {
-        if (value === null || key === 'author' || key === 'author_username' || key === 'author_id'
-        || key === 'commit_count'|| key === 'commit_from'|| key === 'commit_to') {
+        if (value === null || ignoredFileds.split(" ").includes(key)) {
             return;
+        }
+        if (key == 'created_at') { 
+            return (new Date(value)).toTimeString();
         }
         return value;
     }

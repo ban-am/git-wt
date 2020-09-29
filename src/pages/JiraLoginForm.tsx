@@ -1,20 +1,51 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react-lite';
+import { Form, Button } from 'semantic-ui-react';
+import { Form as FinalForm, Field } from 'react-final-form';
+import { JiraUser } from '../models/User';
+import TextInput from '../components/TextInput';
 import { RootStoreContext } from '../stores/rootStore';
-import { Input, Message, Button } from 'semantic-ui-react';
 
 const JiraLoginForm: React.FC = () => {
    const rootStore = useContext(RootStoreContext);
-   const { setUsername, setPassword, createJira } = rootStore.jiraStore;
+   const { login } = rootStore.jiraStore;
 
    return (
-      <>
-         <Input icon='user' iconPosition='left' placeholder='Username' onChange={e => setUsername(e.target.value)}/>
-         <Input icon='key' iconPosition='left' placeholder='Password' type='password' onChange={e => setPassword(e.target.value)}/>
-         <Button onClick={createJira}>Login</Button>
-      </>
+      <FinalForm
+         onSubmit={(values: JiraUser) =>
+            // console.log(values)
+            login(values)
+         }
+         render={({
+            handleSubmit,
+            submitting,
+            submitError,
+            invalid,
+            pristine,
+            dirtySinceLastSubmit
+         }) => (
+               <Form onSubmit={handleSubmit} error autoComplete='off'>
+                  <Field name='username' component={TextInput} placeholder='Username' />
+                  <Field
+                     name='password'
+                     component={TextInput}
+                     placeholder='Password'
+                     type='password'
+                  />
+                  {submitError && !dirtySinceLastSubmit && (
+                        console.log(submitError)
+                     )}
+                  <Button
+                     disabled={(invalid && !dirtySinceLastSubmit) || pristine}
+                     loading={submitting}
+                     color='teal'
+                     content='Login'
+                     fluid
+                  />
+               </Form>
+            )}
+      />
    );
-
 };
 
 export default observer(JiraLoginForm);
