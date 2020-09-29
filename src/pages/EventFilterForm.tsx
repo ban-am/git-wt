@@ -6,7 +6,7 @@ import { Input, List, Button } from 'semantic-ui-react';
 const EventFilterForm: React.FC = () => {
   const rootStore = useContext(RootStoreContext);
   const { user } = rootStore.userStore;
-  const { params, setParamName, setParamValue, addParam, getEvents, processEvents } = rootStore.eventStore;
+  const { params, setParamName, setParamValue, addParam, getEvents } = rootStore.eventStore;
 
   return (
     <>
@@ -36,7 +36,7 @@ const EventFilterForm: React.FC = () => {
 
           {user && <Button onClick={getEvents}>Submite</Button>}
           
-          <Button onClick={processEvents}>Process</Button>
+          {/* <Button onClick={processEvents}>Process</Button> */}
         </List.Item>
       </List>
     </>

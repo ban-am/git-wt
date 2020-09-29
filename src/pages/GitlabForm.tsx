@@ -9,7 +9,11 @@ const GitlabForm: React.FC = () => {
    const { getUser, err, user } = rootStore.userStore;
 
    return (
-      <>
+      <> 
+      {/* */}
+      <Message>
+         Create read_api token here: <a href="https://gitlab.webix.de/profile/personal_access_tokens">wwww.gitlab.webix.de/profile/personal_access_tokens</a>
+      </Message>
          <Input icon='key' iconPosition='left' placeholder='Your token'
             onChange={e => setToken(e.target.value)}
             value={token}

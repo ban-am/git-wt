@@ -10,14 +10,14 @@ export default class EventStore {
         this.rootStore = rootStore;
     }
 
-    @observable events: any[] = [];
-    @observable grupedEvents: { [time: string]: any[]; } = {}
+    @observable.ref events: any[] = [];
+    @observable.ref grupedEvents: { [time: string]: any[]; } = {}
     @observable processedEvents: any[] = [];
     @observable ignoredFileds: string = "author author_username author_id commit_count commit_from commit_to";
 
     @observable params: EventFilterParams[] = [{
         name: 'after',
-        value: "2020-7-31"
+        value: "2020-8-31"
     } as EventFilterParams];
 
     @action addParam = () => {

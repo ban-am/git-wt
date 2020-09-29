@@ -4,6 +4,8 @@ import GitlabForm from "./pages/GitlabForm";
 import User from "./pages/User";
 import EventFilterForm from "./pages/EventFilterForm";
 import Events from "./pages/Events";
+import 'antd/dist/antd.css';
+import { Container } from "semantic-ui-react";
 
 const App: React.FC = () => {
   const rootStore = useContext(RootStoreContext);
@@ -19,7 +21,7 @@ const App: React.FC = () => {
   }, [getUser, createApi, token])
 
   return (
-    <>
+    <Container>
       <h3>GitLab User Token:</h3>
       <GitlabForm />
 
@@ -34,7 +36,7 @@ const App: React.FC = () => {
 
       <h3>Events:</h3>
       <Events />
-    </>
+    </Container>
   )
 };
 
