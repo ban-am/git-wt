@@ -1,15 +1,18 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react-lite';
 import { RootStoreContext } from '../stores/rootStore';
-import { Input, List, Button } from 'semantic-ui-react';
+import { Input, List, Button, Message } from 'semantic-ui-react';
 
 const EventFilterForm: React.FC = () => {
   const rootStore = useContext(RootStoreContext);
   const { user } = rootStore.userStore;
   const { params, setParamName, setParamValue, addParam, getEvents } = rootStore.eventStore;
-
   return (
     <>
+    
+      <Message>
+         All parameters: <a href="https://docs.gitlab.com/ee/api/events.html#list-currently-authenticated-users-events">www.docs.gitlab.com/ee/api/events.html#list-currently-authenticated-users-events</a>
+      </Message>
       <List>
         <List.Item>
           {params.map((obj, id) => {

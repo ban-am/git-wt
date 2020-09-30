@@ -8,13 +8,13 @@ import { RootStoreContext } from '../stores/rootStore';
 
 const JiraLoginForm: React.FC = () => {
    const rootStore = useContext(RootStoreContext);
-   const { login } = rootStore.jiraStore;
+   // const { login } = rootStore.jiraStore;
 
    return (
       <FinalForm
          onSubmit={(values: JiraUser) =>
-            // console.log(values)
-            login(values)
+            console.log(values)
+            // login(values)
          }
          render={({
             handleSubmit,

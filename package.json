@@ -12,6 +12,7 @@
     "@types/underscore": "^1.10.22",
     "antd": "^4.6.6",
     "axios": "^0.20.0",
+    "dayjs": "^1.9.1",
     "final-form": "^4.20.1",
     "jira-client": "^6.20.0",
     "mobx": "^5.15.6",

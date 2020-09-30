@@ -13,7 +13,7 @@ export default class EventStore {
     @observable.ref events: any[] = [];
     @observable.ref grupedEvents: { [time: string]: any[]; } = {}
     @observable processedEvents: any[] = [];
-    @observable ignoredFileds: string = "author author_username author_id commit_count commit_from commit_to";
+    @observable ignoredFileds: string[] = ["author","author_username","author_id","commit_count","commit_from","commit_to","project_id","target_id","target_iid","position"];
 
     @observable params: EventFilterParams[] = [{
         name: 'after',
