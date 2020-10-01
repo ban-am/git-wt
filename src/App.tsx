@@ -4,7 +4,6 @@ import GitlabForm from "./pages/GitlabForm";
 import User from "./pages/User";
 import EventFilterForm from "./pages/EventFilterForm";
 import Events from "./pages/Events";
-import 'antd/dist/antd.css';
 import { Container } from "semantic-ui-react";
 
 const App: React.FC = () => {

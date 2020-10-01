@@ -28,11 +28,38 @@ const Events: React.FC = () => {
         return value;
     }
 
+    const getTime = (value: any) => {
+        var date = new Date(value);
+        var newDate = date.setTime(date.getTime() + date.getTimezoneOffset() * 60 * 1000);
+        return dayjs(newDate).format('H:mm');
+    }
+
+    const createObj = (x: any) => {
+        var item: any[] = [];
+        item.push(<p>{getTime(x.created_at)}</p>);
+
+        if(x.push_data){
+            item.push(<p>{x.action_name} {x.push_data.ref_type}</p>);
+            item.push(<p>{x.push_data.ref}</p>);
+        }
+        else if (x.note) {
+            console.log(x);
+            item.push(<p>{x.action_name}</p>);
+            item.push(<p>{x.target_title}</p>);
+        } else {
+            item.push(<p>{x.action_name} {x.target_type}</p>);
+            item.push(<p>{x.target_title}</p>);
+        }
+        return item;
+    }
+
     const print = (key: string) => {
         let list = [];
         list.push(<Timeline.Item dot={<ClockCircleOutlined translate style={{ fontSize: '18px' }} />} color="red"><h2>{dayjs(key).format('DD. MM. YYYY')}</h2></Timeline.Item>);
         list.push(grupedEvents[key].map((x: any, id: any) => {
-            var text = <pre>{JSON.stringify(x, replacer, 1).slice(2, -2).replace(/\"/g, '')}</pre>;
+
+            var text = createObj(x);
+
             switch (x.action_name) {
                 case "commented on":
                     return (<Timeline.Item dot={<MessageOutlined translate style={{ fontSize: '18px' }} />} color="green">{text}</Timeline.Item>);
@@ -86,7 +113,7 @@ const Events: React.FC = () => {
                 </ul>
             </nav>
             {events && (
-                <Timeline >
+                <Timeline className='timeline'>
                     {Object.keys(grupedEvents).map((key, index) => (
                         <Element name={key} className="element big">
                             {print(key)}
