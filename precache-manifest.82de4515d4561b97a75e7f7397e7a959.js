@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "4ca4eb58c7024c22078d3d1122a06fa7",
+    "revision": "407caefec180a190a5085a17ed1e216d",
     "url": "/git-wt/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/git-wt/static/css/2.9d43ad0b.chunk.css"
   },
   {
-    "revision": "64d7982de5a33b1b82e1",
+    "revision": "0a92801c14aa4277f9fa",
     "url": "/git-wt/static/css/main.e90bab83.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/git-wt/static/js/2.87e5b34c.chunk.js"
   },
   {
-    "revision": "64d7982de5a33b1b82e1",
-    "url": "/git-wt/static/js/main.fc0e2aec.chunk.js"
+    "revision": "0a92801c14aa4277f9fa",
+    "url": "/git-wt/static/js/main.81bd8d77.chunk.js"
   },
   {
     "revision": "8da77761f4696d2c84e5",
