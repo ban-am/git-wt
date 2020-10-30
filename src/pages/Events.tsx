@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react-lite';
 import { RootStoreContext } from '../stores/rootStore';
-import { Timeline, Typography, Input } from 'antd';
-import { ClockCircleOutlined, MessageOutlined, DeleteOutlined, CheckCircleOutlined, PlusCircleOutlined, ForkOutlined } from '@ant-design/icons';
+import { Timeline, Typography, Input, Button } from 'antd';
+import { ClockCircleOutlined, MessageOutlined, DeleteOutlined, CheckCircleOutlined, PlusCircleOutlined, ForkOutlined, LinkOutlined } from '@ant-design/icons';
 
 const { Title } = Typography;
 
@@ -13,7 +13,7 @@ const { Link, Element } = Scroll;
 
 const Events: React.FC = () => {
     const rootStore = useContext(RootStoreContext);
-    const { events, grupedEvents } = rootStore.eventStore;
+    const { events, grupedEvents, createLink } = rootStore.eventStore;
 
     const getTime = (value: any) => {
         var date = new Date(value);
@@ -27,15 +27,18 @@ const Events: React.FC = () => {
 
         if (x.push_data) {
             item.push(<p>{x.action_name} {x.push_data.ref_type}</p>);
-            item.push(<p>{x.push_data.ref}</p>);
+            var link = createLink(x.push_data.ref);
+            item.push(<p>{x.push_data.ref} {link && <Button title={link} type="link" href={link} target="_blank" icon={<LinkOutlined translate/>}></Button>}</p>);
         }
         else if (x.note) {
             console.log(x);
             item.push(<p>{x.action_name}</p>);
-            item.push(<p>{x.target_title}</p>);
+            var link = createLink(x.target_title);
+            item.push(<p>{x.target_title} {link && <Button title={link} type="link" href={link} target="_blank" icon={<LinkOutlined translate/>}></Button>}</p>);
         } else {
             item.push(<p>{x.action_name} {x.target_type}</p>);
-            item.push(<p>{x.target_title}</p>);
+            var link = createLink(x.target_title);
+            item.push(<p>{x.target_title} {link && <Button title={link} type="link" href={link} target="_blank" icon={<LinkOutlined translate/>}></Button>}</p>);
         }
         return item;
     }

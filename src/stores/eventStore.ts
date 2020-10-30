@@ -6,7 +6,6 @@ var dayjs = require('dayjs');
 
 export default class EventStore {
     rootStore: RootStore;
-
     constructor(rootStore: RootStore) {
         this.rootStore = rootStore;
     }
@@ -15,6 +14,7 @@ export default class EventStore {
     @observable.ref grupedEvents: { [time: string]: any[]; } = {}
     @observable processedEvents: any[] = [];
     @observable ignoredFileds: string[] = ["author", "author_username", "author_id", "commit_count", "commit_from", "commit_to", "project_id", "target_id", "target_iid", "position"];
+    @observable regex = "SMAR.[\\d]+";
 
     @action getLastDayOfMonth = (): string => {
         var d = new Date();
@@ -42,6 +42,18 @@ export default class EventStore {
         });
     }
 
+    @action setRegex = (text: string) => {
+        this.regex = text;
+    }
+
+    @action createLink = (text: string): string | undefined => {
+        const data: any = text.match(this.regex);
+        let link: string | undefined = undefined;
+        if(data) {
+            link = "https://jira.smart-digital.de/browse/" + data[0]
+        }
+        return link;
+    }
 
     @action removeParam = (index: number) => {
         this.params.splice(index, 1);

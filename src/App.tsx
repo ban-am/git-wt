@@ -7,6 +7,7 @@ import Events from "./pages/Events";
 import { Container } from "semantic-ui-react";
 import { GitlabOutlined } from '@ant-design/icons';
 import { Space, Typography } from "antd";
+import JiraTaskParser from "./pages/JiraTaskParser";
 const { Title } = Typography;
 
 const App: React.FC = () => {
@@ -32,6 +33,7 @@ const App: React.FC = () => {
         <GitlabForm />
         <User />
         <EventFilterForm />
+        <JiraTaskParser />
         <Events />
       </Space>
 
