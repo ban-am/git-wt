@@ -1,7 +1,9 @@
 .vertical-nav {
     position: fixed;
     right: 40px;
-    top: 50%;
+    top: 50%;    
+    overflow: auto;
+    max-height: 90%;
     bottom: auto;
     -webkit-transform: translateY(-50%);
     -moz-transform: translateY(-50%);
@@ -28,7 +30,18 @@
     font-weight: 700;
 }
 
-
 .timeline p{
     margin: 0;
+}
+
+.home-page {
+    margin: auto;
+}
+
+.home-page h1 {
+    font-size: 32px;
+    line-height: 45px;
+    margin: 0 auto 30px;
+    text-align: center;
+    color: #314659;
 }

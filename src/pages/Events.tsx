@@ -1,9 +1,10 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react-lite';
 import { RootStoreContext } from '../stores/rootStore';
-import { Timeline } from 'antd';
+import { Timeline, Typography, Input } from 'antd';
 import { ClockCircleOutlined, MessageOutlined, DeleteOutlined, CheckCircleOutlined, PlusCircleOutlined, ForkOutlined } from '@ant-design/icons';
-import { Input } from 'semantic-ui-react';
+
+const { Title } = Typography;
 
 var Scroll = require('react-scroll');
 var dayjs = require('dayjs')
@@ -12,21 +13,7 @@ const { Link, Element } = Scroll;
 
 const Events: React.FC = () => {
     const rootStore = useContext(RootStoreContext);
-    const { events, grupedEvents, ignoredFileds } = rootStore.eventStore;
-    const { ticket, setTicket } = rootStore.jiraStore;
-
-    const replacer = (key: any, value: any) => {
-        if (value === null || ignoredFileds.includes(key)) {
-            return;
-        }
-        if (key === 'created_at') {
-            var date = new Date(value);
-            var newDate = date.setTime(date.getTime() + date.getTimezoneOffset() * 60 * 1000);
-            var data = dayjs(newDate).format('H:mm:ss');
-            return data;
-        }
-        return value;
-    }
+    const { events, grupedEvents } = rootStore.eventStore;
 
     const getTime = (value: any) => {
         var date = new Date(value);
@@ -38,7 +25,7 @@ const Events: React.FC = () => {
         var item: any[] = [];
         item.push(<p>{getTime(x.created_at)}</p>);
 
-        if(x.push_data){
+        if (x.push_data) {
             item.push(<p>{x.action_name} {x.push_data.ref_type}</p>);
             item.push(<p>{x.push_data.ref}</p>);
         }
@@ -55,7 +42,7 @@ const Events: React.FC = () => {
 
     const print = (key: string) => {
         let list = [];
-        list.push(<Timeline.Item dot={<ClockCircleOutlined translate style={{ fontSize: '18px' }} />} color="red"><h2>{dayjs(key).format('DD. MM. YYYY')}</h2></Timeline.Item>);
+        list.push(<Timeline.Item dot={<ClockCircleOutlined translate style={{ fontSize: '18px' }} />} color="red"><h2>{dayjs(key).format('DD. MM. YYYY (dd)')}</h2></Timeline.Item>);
         list.push(grupedEvents[key].map((x: any, id: any) => {
 
             var text = createObj(x);
@@ -86,30 +73,36 @@ const Events: React.FC = () => {
 
     return (
         <>
+            <Title level={4}>
+                Events
+            </Title>
+
             <nav className="vertical-nav">
                 <ul>
                     <li>
-                        <Input placeholder='Jira ticket number'
-                            onChange={e => setTicket(e.target.value)}
-                            value={ticket}
-                            action={{
-                                icon: 'external',
-                                onClick: () => {
-                                    window.open(
-                                        "https://jira.smart-digital.de/browse/SMAR-" + ticket,
-                                        '_blank'
-                                      );
-                                }
-                            }} />
+                        <Input.Search
+                            size="large"
+                            placeholder="Jira ticket number"
+                            enterButton
+                            onSearch={value => {
+                                if(!value)
+                                    return;
+                                window.open(
+                                    "https://jira.smart-digital.de/browse/SMAR-" + value,
+                                    '_blank'
+                                );
+                            }}
+                            style={{ width: 200 }}
+                        />
                     </li>
                 </ul>
-                <ul style={{ float: 'right'}}>
+                <ul style={{ float: 'right' }} className="timeLineItem">
                     {Object.keys(grupedEvents).map((key, index) => (
                         <li key={index}>
                             <Link activeClass="active" to={key} spy={true} smooth={true} duration={250} >{dayjs(key).format('DD. MM. YYYY')}</Link>
                         </li>
                     ))}
-                    
+
                 </ul>
             </nav>
             {events && (

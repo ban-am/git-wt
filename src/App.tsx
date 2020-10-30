@@ -5,36 +5,36 @@ import User from "./pages/User";
 import EventFilterForm from "./pages/EventFilterForm";
 import Events from "./pages/Events";
 import { Container } from "semantic-ui-react";
+import { GitlabOutlined } from '@ant-design/icons';
+import { Space, Typography } from "antd";
+const { Title } = Typography;
 
 const App: React.FC = () => {
   const rootStore = useContext(RootStoreContext);
-  const { token, createApi }  = rootStore.apiStore;
-  const { getUser }  = rootStore.userStore;
+  const { token, createApi } = rootStore.apiStore;
+  const { getUser } = rootStore.userStore;
 
   useEffect(() => {
     if (token) {
       console.log(token);
       createApi();
       getUser()
-    } 
+    }
   }, [getUser, createApi, token])
 
   return (
     <Container>
-      <h3>GitLab User Token:</h3>
-      <GitlabForm />
+      <div className="home-page">
+        <Title style={{ fontSize: '62px' }}><GitlabOutlined translate style={{ fontSize: '72px' }} /> WT</Title>
+      </div>
 
-      {/* <h3>Jira User:</h3>
-      <JiraLoginForm /> */}
+      <Space direction="vertical">
+        <GitlabForm />
+        <User />
+        <EventFilterForm />
+        <Events />
+      </Space>
 
-      <h3>User:</h3>
-      <User />
-
-      <h3>Event filter:</h3>
-      <EventFilterForm />
-
-      <h3>Events:</h3>
-      <Events />
     </Container>
   )
 };

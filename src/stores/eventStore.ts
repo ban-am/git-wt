@@ -2,6 +2,7 @@ import { RootStore } from "./rootStore";
 import { observable, action, runInAction } from "mobx";
 import { EventFilterParams } from "../models/Event";
 import { Dictionary, groupBy } from "underscore";
+var dayjs = require('dayjs');
 
 export default class EventStore {
     rootStore: RootStore;
@@ -13,11 +14,25 @@ export default class EventStore {
     @observable.ref events: any[] = [];
     @observable.ref grupedEvents: { [time: string]: any[]; } = {}
     @observable processedEvents: any[] = [];
-    @observable ignoredFileds: string[] = ["author","author_username","author_id","commit_count","commit_from","commit_to","project_id","target_id","target_iid","position"];
+    @observable ignoredFileds: string[] = ["author", "author_username", "author_id", "commit_count", "commit_from", "commit_to", "project_id", "target_id", "target_iid", "position"];
+
+    @action getLastDayOfMonth = (): string => {
+        var d = new Date();
+        var newMonth = d.getMonth() - 1;
+        if(newMonth < 0){
+            newMonth += 12;
+            d.setFullYear(d.getFullYear() - 1);
+        }
+        d.setMonth(newMonth);
+
+        let date = dayjs(d);
+
+        return date.format('YYYY-MM') + '-' + date.daysInMonth();
+    }
 
     @observable params: EventFilterParams[] = [{
         name: 'after',
-        value: "2020-8-31"
+        value: this.getLastDayOfMonth()
     } as EventFilterParams];
 
     @action addParam = () => {
@@ -26,6 +41,7 @@ export default class EventStore {
             value: ''
         });
     }
+
 
     @action removeParam = (index: number) => {
         this.params.splice(index, 1);
@@ -40,6 +56,8 @@ export default class EventStore {
     };
 
     @action getEvents = async () => {
+        if (!this.rootStore.userStore.user)
+            return;
         try {
             var evn = await this.loadEvents();
             runInAction(() => {
